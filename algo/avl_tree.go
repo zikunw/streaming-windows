@@ -9,7 +9,6 @@ type AVLNode[K cmp.Ordered] struct {
 	right  *AVLNode[K]
 	height int
 
-	// for order statistic tree
 	size int
 }
 
@@ -174,3 +173,18 @@ func (n *AVLNode[K]) Delete(key K) *AVLNode[K] {
 
 	return n
 }
+
+func (o *AVLNode[K]) Select(i int) K {
+	p := o.left.getSize() + 1
+	if i == p {
+		return o.key
+	} else if i < p {
+		return o.left.Select(i)
+	} else {
+		return o.right.Select(i - p)
+	}
+}
+
+// func (o *AVLNode[K]) Rank(key K) int {
+
+// }
